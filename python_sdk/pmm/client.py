@@ -4,7 +4,7 @@ from eth_account.signers.local import LocalAccount
 from eth_typing import HexStr
 from hexbytes import HexBytes
 from web3 import AsyncHTTPProvider, AsyncWeb3
-from web3.middleware.geth_poa import async_geth_poa_middleware
+from web3.middleware import ExtraDataToPOAMiddleware
 
 from python_sdk.common.funcs import send_taker_order
 from python_sdk.common.types.order_types import (
@@ -41,7 +41,7 @@ class PMMClient:
         self.web3 = AsyncWeb3(
             AsyncHTTPProvider(rpc_url if rpc_url else chain.public_rpc, request_kwargs={"timeout": 6})
         )
-        self.web3.middleware_onion.inject(async_geth_poa_middleware, "poa", layer=0)
+        self.web3.middleware_onion.inject(ExtraDataToPOAMiddleware, "poa", layer=0)
         # ------------------------------- Local Account ------------------------------ #
         self.account: LocalAccount | None = Account.from_key(private_key) if private_key else None
         # -------------------- Source Auth (if provided by Bebop) -------------------- #

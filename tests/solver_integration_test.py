@@ -42,7 +42,7 @@ class TestSolver:
         quote_request = QuoteRequest(
             sell_tokens=[NATIVE_TOKEN],
             buy_tokens=[chain.tokens["USDT"]],
-            sell_amounts=[int(0.00005 * 10**18)],
+            sell_amounts=[int(0.0007 * 10**18)],
             taker_address=account.address,
             include_solvers=solver,
             gasless=gasless,
@@ -55,7 +55,7 @@ class TestSolver:
         quote_request = QuoteRequest(
             sell_tokens=[chain.tokens["USDT"]],
             buy_tokens=[NATIVE_TOKEN],
-            sell_amounts=[int(0.1 * 10**6)],
+            sell_amounts=[int(2 * 10**18)],
             taker_address=account.address,
             include_solvers=solver,
             gasless=gasless,
@@ -68,7 +68,7 @@ class TestSolver:
         quote_request = QuoteRequest(
             sell_tokens=[chain.tokens["USDT"]],
             buy_tokens=[chain.tokens["WETH"], chain.tokens["WBTC"], chain.tokens["USDC"]],
-            sell_amounts=[int(0.3 * 10**6)],
+            sell_amounts=[int(2 * 10**6)],
             taker_address=account.address,
             include_solvers=solver,
             gasless=gasless,
@@ -82,7 +82,7 @@ class TestSolver:
         quote_request = QuoteRequest(
             sell_tokens=[chain.tokens["USDT"], chain.tokens["USDC"]],
             buy_tokens=[chain.tokens["WETH"]],
-            sell_amounts=[int(0.3 * 10**6), int(0.3 * 10**6)],
+            sell_amounts=[int(2 * 10**6), int(2 * 10**6)],
             taker_address=account.address,
             include_solvers=solver,
             gasless=gasless,

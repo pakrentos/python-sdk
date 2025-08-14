@@ -167,4 +167,4 @@ class QuoteResponse(BaseModel):
         assert self.tx["gas"]
         self.tx["gas"] = int(self.tx["gas"] * 4)
         signed_tx: SignedTransaction = account.sign_transaction(self.tx)
-        return signed_tx.rawTransaction
+        return signed_tx.raw_transaction

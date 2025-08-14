@@ -14,7 +14,7 @@ async def send_order(pmm: PMMClient, quote_request: QuoteRequest) -> None:
         assert isinstance(result, OrderStatusResponse)
         assert result.status in {OrderApiStatus.Settled, OrderApiStatus.Confirmed}
     else:
-        _, success = await pmm.send_taker_order(quote_request)
+        _, _, success = await pmm.send_taker_order(quote_request)
         assert success is True
 
 
@@ -25,7 +25,7 @@ class Testmaker:
         quote_request = QuoteRequest(
             sell_tokens=[chain.tokens["USDT"]],
             buy_tokens=[chain.tokens["WETH"]],
-            sell_amounts=[int(0.1 * 10**6)],
+            sell_amounts=[int(2 * 10**6)],
             taker_address=account.address,
             include_makers=maker,
             gasless=gasless,
@@ -40,7 +40,7 @@ class Testmaker:
         quote_request = QuoteRequest(
             sell_tokens=[NATIVE_TOKEN],
             buy_tokens=[chain.tokens["USDT"]],
-            sell_amounts=[int(0.00005 * 10**18)],
+            sell_amounts=[int(0.0007 * 10**18)],
             taker_address=account.address,
             include_makers=maker,
             gasless=gasless,
@@ -53,7 +53,7 @@ class Testmaker:
         quote_request = QuoteRequest(
             sell_tokens=[chain.tokens["USDT"]],
             buy_tokens=[NATIVE_TOKEN],
-            sell_amounts=[int(0.1 * 10**6)],
+            sell_amounts=[int(2 * 10**6)],
             taker_address=account.address,
             include_makers=maker,
             gasless=gasless,
@@ -80,7 +80,7 @@ class Testmaker:
         quote_request = QuoteRequest(
             sell_tokens=[chain.tokens["USDT"], chain.tokens["USDC"]],
             buy_tokens=[chain.tokens["WETH"]],
-            sell_amounts=[int(0.3 * 10**6), int(0.3 * 10**6)],
+            sell_amounts=[int(2 * 10**6), int(2 * 10**6)],
             taker_address=account.address,
             include_makers=maker,
             gasless=gasless,

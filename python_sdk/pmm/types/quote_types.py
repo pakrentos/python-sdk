@@ -33,4 +33,4 @@ class QuoteResponse(quote_types.QuoteResponse):
         )
         signable_msg: SignableMessage = encode_typed_data(full_message=asdict(structured_msg))
         signed_msg: SignedMessage = account.sign_message(signable_msg)
-        return signed_msg.signature.hex()
+        return "0x" + signed_msg.signature.hex()
