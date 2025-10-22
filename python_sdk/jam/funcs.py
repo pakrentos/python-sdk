@@ -72,13 +72,17 @@ async def send_gasless_order(
     quote: QuoteResponse,
     headers: dict[str, Any] | None,
     auth: aiohttp.BasicAuth | None,
+    sign_scheme: str = "EIP712",
 ) -> OrderStatusResponse:
     signature: str = quote.sign_order(account=account)
     order_request = OrderRequest(
         quote_id=quote.quoteId,
         signature=signature,
+        sign_scheme=sign_scheme,
     )
-    result = await post_order(env=env, chain=chain, order_request=order_request, headers=headers, auth=auth)
+    result = await post_order(
+        env=env, chain=chain, order_request=order_request, headers=headers, auth=auth
+    )
     LOGGER.info(f"Order sent. Result: {result}")
 
     retries: int = 1

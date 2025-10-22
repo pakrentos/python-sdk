@@ -25,4 +25,4 @@ class QuoteResponse(common_types.QuoteResponse):
         structured_msg = JamOrderSchema.structured_message(chain_id=self.chainId, message=self.toSign.signable_message)
         signable_msg: SignableMessage = encode_typed_data(full_message=asdict(structured_msg))
         signed_msg: SignedMessage = account.sign_message(signable_msg)
-        return signed_msg.signature.hex()
+        return signed_msg.signature.to_0x_hex()

@@ -162,9 +162,11 @@ class QuoteResponse(BaseModel):
         """Sign transaction for self execution"""
         if not self.tx:
             raise ValueError("No tx data found, ensure `gasless`=`False` when requesting quote.")
+        self.tx["from"] = account.address
         self.tx["nonce"] = await web3.eth.get_transaction_count(account.address)
         self.tx["gasPrice"] = int((await web3.eth.gas_price) * 1.5)
         assert self.tx["gas"]
         self.tx["gas"] = int(self.tx["gas"] * 4)
+        self.tx["chainId"] = await web3.eth.chain_id
         signed_tx: SignedTransaction = account.sign_transaction(self.tx)
         return signed_tx.raw_transaction
